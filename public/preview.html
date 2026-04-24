@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alison Thomas — Spiritual Medium & Healer | Isle of Man</title>
+<meta name="description" content="Alison Thomas is a professional evidential medium and former police detective based in Onchan, Isle of Man." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ivory: #fffdf8;
+    --cream: #fbf7f0;
+    --gold: #d9c78e;
+    --gold-dark: #c2ae6f;
+    --navy: #3e4e68;
+    --navy-dark: #2d3a4f;
+    --sage: #7a9a87;
+    --burgundy: #a86a72;
+    --turquoise: #7fb8b3;
+    --sand: #e8dccb;
+    --charcoal: #2a2a2a;
+
+    --font-sans: 'Lato', system-ui, sans-serif;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-script: 'Pinyon Script', cursive;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); color: var(--charcoal); background: var(--ivory); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; font-weight: 500; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  section { padding: 0; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .container-narrow { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 253, 248, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(217, 199, 142, 0.3);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.75rem 2rem;
+    max-width: 1200px; margin: 0 auto; height: 80px;
+  }
+  .logo-link { display: flex; align-items: center; gap: 0.75rem; }
+  .logo-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: #3E4E68; border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .logo-circle img { width: 80%; height: 80%; object-fit: contain; }
+  .logo-text-script { font-family: var(--font-script); color: var(--gold-dark); font-size: 28px; line-height: 1; }
+  .logo-text-sub { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(62, 78, 104, 0.7); }
+  .nav-links { display: none; gap: 2.25rem; align-items: center; }
+  .nav-links a { font-size: 14px; color: rgba(42, 42, 42, 0.8); transition: color .2s; }
+  .nav-links a:hover { color: var(--burgundy); }
+  .btn-gold {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--gold); color: var(--navy);
+    padding: 0.625rem 1.25rem; border-radius: 9999px;
+    font-size: 14px; font-weight: 500;
+    transition: background .2s;
+  }
+  .btn-gold:hover { background: var(--gold-dark); }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1fr; min-height: 560px; }
+  .hero-left, .hero-right { display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+  .hero-left { background: #3E4E68; color: var(--ivory); }
+  .hero-left .inner { max-width: 28rem; text-align: center; }
+  .hero-left img.logo { width: 320px; height: 320px; object-fit: contain; margin: 0 auto; }
+  .divider { margin: 2rem auto 0; height: 1px; width: 4rem; background: rgba(217, 199, 142, 0.6); }
+  .hero-quote { font-family: var(--font-serif); font-style: italic; color: var(--cream); font-size: 18px; margin-top: 1.25rem; }
+  .hero-cta-row { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+  .btn-outline-ivory {
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255, 253, 248, 0.7);
+    padding: 0.75rem 1.75rem; border-radius: 9999px;
+    color: var(--ivory); font-size: 14px; font-weight: 500;
+    transition: all .2s;
+  }
+  .btn-outline-ivory:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-right { background: var(--ivory); color: var(--charcoal); }
+  .hero-right .inner { width: 100%; max-width: 28rem; text-align: center; }
+  .portrait {
+    margin: 0 auto; width: 256px; height: 256px; border-radius: 50%;
+    overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    outline: 4px solid rgba(217, 199, 142, 0.4); outline-offset: -4px;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-top: 2rem; }
+  .hero-h { font-size: 2.25rem; color: var(--navy); margin-top: 0.75rem; line-height: 1.15; }
+  .hero-p { margin-top: 1.25rem; color: rgba(42, 42, 42, 0.8); line-height: 1.6; }
+  .stats {
+    margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;
+  }
+  .stat-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(42, 42, 42, 0.6); }
+  .stat-val { font-family: var(--font-serif); font-size: 24px; color: var(--gold-dark); margin-top: 0.25rem; }
+  @media (min-width: 768px) { .hero { grid-template-columns: 1fr 1fr; } .hero-left .inner img.logo { width: 320px; } }
+
+  /* Trust strip */
+  .trust { background: var(--ivory); border-top: 1px solid rgba(217, 199, 142, 0.3); border-bottom: 1px solid rgba(217, 199, 142, 0.3); }
+  .trust-inner { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem; }
+  .trust-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; text-align: center; }
+  @media (min-width: 768px) { .trust-grid { grid-template-columns: repeat(4, 1fr); } }
+  .trust-val { font-family: var(--font-serif); font-size: 2rem; color: var(--gold-dark); }
+  .trust-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(62, 78, 104, 0.7); max-width: 16ch; margin: 0.5rem auto 0; }
+
+  /* About */
+  .about { background: var(--cream); padding: 3rem 0; }
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+  .about-img-wrap { position: relative; max-width: 28rem; margin: 0 auto; }
+  .about-img { aspect-ratio: 4/5; overflow: hidden; border-radius: 2px; box-shadow: 0 25px 50px rgba(0,0,0,.15); }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; }
+  .about-img-accent { position: absolute; inset: 0; border: 1px solid rgba(217, 199, 142, 0.6); border-radius: 2px; transform: translate(16px, 16px); z-index: -1; }
+  .about-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid rgba(217, 199, 142, 0.6); background: var(--ivory);
+    padding: 0.375rem 1rem; border-radius: 9999px;
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(62, 78, 104, 0.8);
+  }
+  .about-dot { width: 14px; height: 14px; color: var(--turquoise); }
+  .about-h { margin-top: 1.25rem; font-size: 2.5rem; color: var(--navy); line-height: 1.1; }
+  .about-p { margin-top: 1.25rem; color: rgba(42, 42, 42, 0.85); line-height: 1.6; }
+  .about-features { margin-top: 2rem; display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .about-features { grid-template-columns: 1fr 1fr; } }
+  .about-feat { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .about-feat-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(217, 199, 142, 0.2); color: var(--gold-dark);
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .about-feat-title { font-family: var(--font-serif); font-size: 18px; color: var(--navy); line-height: 1.15; }
+  .about-feat-sub { font-size: 14px; color: rgba(42, 42, 42, 0.7); margin-top: 2px; }
+  @media (min-width: 768px) { .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+
+  /* Services */
+  .services { background: var(--sage); color: var(--ivory); padding: 3rem 0; position: relative; }
+  .services::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(217, 199, 142, 0.4); }
+  .services-head { text-align: center; max-width: 36rem; margin: 0 auto; }
+  .services-eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255, 253, 248, 0.9); }
+  .services-h { margin-top: 0.75rem; font-size: 2.5rem; line-height: 1.1; }
+  .services-p { margin-top: 1rem; color: rgba(255, 253, 248, 0.85); line-height: 1.6; }
+  .services-grid {
+    margin-top: 3.5rem; display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+  }
+  @media (min-width: 640px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .services-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .service-card {
+    background: var(--sand); border: 1px solid var(--gold); color: var(--charcoal);
+    padding: 1.5rem; border-radius: 2px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; position: relative;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 1.5rem; right: 1.5rem; height: 1px; background: rgba(217, 199, 142, 0.7); }
+  .service-title { font-family: var(--font-serif); font-size: 20px; color: var(--navy); }
+  .service-meta { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0 0.75rem; font-size: 12px; color: rgba(42, 42, 42, 0.7); }
+  .service-desc { margin-top: 0.75rem; font-size: 14px; line-height: 1.6; color: rgba(42, 42, 42, 0.8); flex: 1; }
+  .service-price { font-family: var(--font-serif); font-size: 24px; color: var(--gold-dark); margin-top: 1.25rem; }
+  .service-btn {
+    margin-top: 1rem; display: inline-flex; align-items: center; justify-content: center; width: 100%;
+    background: var(--navy); color: var(--ivory);
+    padding: 0.625rem 1.25rem; border-radius: 9999px; font-size: 14px; font-weight: 500;
+    transition: background .2s;
+  }
+  .service-btn:hover { background: var(--navy-dark); }
+  .services-note { margin-top: 2.5rem; text-align: center; color: rgba(255, 253, 248, 0.8); font-size: 14px; }
+
+  /* Booking */
+  .booking { background: #3E4E68; color: var(--ivory); padding: 3rem 0; overflow: hidden; }
+  .booking-inner { max-width: 64rem; margin: 0 auto; padding: 0 2rem; text-align: center; }
+  .booking-logo { width: 160px; height: 160px; margin: 0 auto; object-fit: contain; }
+  .booking-eyebrow { margin-top: 1rem; display: inline-block; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(217, 199, 142, 0.9); }
+  .booking-h { margin-top: 0.75rem; font-size: 2.5rem; color: var(--gold); line-height: 1.1; }
+  .booking-p { margin-top: 1rem; max-width: 36rem; margin-left: auto; margin-right: auto; color: rgba(255, 253, 248, 0.8); line-height: 1.6; }
+  .booking-steps { margin-top: 3.5rem; display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+  @media (min-width: 768px) { .booking-steps { grid-template-columns: repeat(3, 1fr); } }
+  .step-icon {
+    display: inline-flex; width: 64px; height: 64px; border-radius: 50%;
+    border: 1px solid rgba(217, 199, 142, 0.6); background: var(--navy-dark); color: var(--gold);
+    align-items: center; justify-content: center;
+  }
+  .step-num { margin-top: 1rem; font-family: var(--font-script); color: var(--gold); font-size: 24px; }
+  .step-title { margin-top: 0.25rem; font-family: var(--font-serif); font-size: 24px; color: var(--ivory); }
+  .step-sub { margin-top: 0.5rem; font-size: 14px; color: rgba(255, 253, 248, 0.75); max-width: 28ch; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .calendly-placeholder {
+    margin: 4rem auto 0; max-width: 48rem; border: 1px solid rgba(217, 199, 142, 0.4);
+    background: rgba(45, 58, 79, 0.6); padding: 3.5rem 2rem; border-radius: 2px; text-align: center;
+  }
+  .calendly-ring { width: 48px; height: 48px; border: 1px solid rgba(217, 199, 142, 0.5); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+  .calendly-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); animation: pulse 1.8s infinite ease-in-out; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .calendly-label { margin-top: 1rem; color: rgba(217, 199, 142, 0.9); font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; }
+  .calendly-sub { margin-top: 0.5rem; color: rgba(255, 253, 248, 0.7); font-size: 14px; }
+  .calendly-cta { margin-top: 2rem; display: inline-flex; align-items: center; background: var(--gold); color: var(--navy); padding: 0.75rem 1.75rem; border-radius: 9999px; font-weight: 500; font-size: 14px; }
+  .calendly-cta:hover { background: var(--gold-dark); }
+
+  /* Testimonials */
+  .testimonials { background: var(--ivory); padding: 1.5rem 0; }
+  .test-head { text-align: center; max-width: 36rem; margin: 0 auto; }
+  .test-eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--burgundy); }
+  .test-h { margin-top: 0.75rem; font-size: 2.5rem; color: var(--navy); line-height: 1.1; }
+  .test-grid { margin-top: 2rem; display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
+  @media (min-width: 768px) { .test-grid { grid-template-columns: 1fr 1fr; } }
+  .test-card {
+    background: var(--cream); border: 1px solid rgba(217, 199, 142, 0.4);
+    padding: 1rem; border-radius: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: relative;
+  }
+  .test-stars { display: flex; gap: 2px; color: var(--gold); font-size: 12px; }
+  .test-quote { margin-top: 0.75rem; font-family: var(--font-serif); font-style: italic; color: rgba(42, 42, 42, 0.9); font-size: 13px; line-height: 1.7; }
+  .test-cite { margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .test-dash { width: 24px; height: 1px; background: var(--gold); }
+  .test-name { font-family: var(--font-serif); color: var(--navy); font-size: 14px; line-height: 1; }
+  .test-loc { margin-top: 2px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(42, 42, 42, 0.6); }
+
+  /* Footer */
+  .footer { background: #3E4E68; color: var(--ivory); padding: 2rem 0; }
+  .footer-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+  @media (min-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .footer-logo { width: 128px; height: 128px; object-fit: contain; }
+  .footer-desc { margin-top: 1rem; color: rgba(255, 253, 248, 0.7); font-size: 14px; max-width: 20rem; line-height: 1.6; }
+  .footer-label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(217, 199, 142, 0.9); }
+  .footer-list { margin-top: 1rem; list-style: none; }
+  .footer-list li { margin-bottom: 0.625rem; }
+  .footer-list a { color: var(--turquoise); font-size: 14px; transition: color .2s; }
+  .footer-list a:hover { color: var(--gold); }
+  .footer-contact { margin-top: 1rem; list-style: none; }
+  .footer-contact li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 14px; color: rgba(255, 253, 248, 0.8); margin-bottom: 0.75rem; }
+  .footer-contact svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+  .footer-bottom { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(217, 199, 142, 0.2); display: flex; flex-direction: column; gap: 0.75rem; align-items: center; justify-content: space-between; font-size: 12px; color: rgba(255, 253, 248, 0.6); }
+  @media (min-width: 640px) { .footer-bottom { flex-direction: row; } }
+  .footer-bottom .tagline { font-family: var(--font-serif); font-style: italic; }
+
+  /* small icon helper */
+  .icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo-link">
+      <span class="logo-circle">
+        <img src="images/tree-only.png" alt="" />
+      </span>
+      <span>
+        <div class="logo-text-script">Alison Thomas</div>
+        <div class="logo-text-sub">Spiritual Medium</div>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#readings">Readings</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#book" class="btn-gold">Book a Session</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section id="top" class="hero">
+  <div class="hero-left">
+    <div class="inner">
+      <img class="logo" src="images/loggo.png" alt="Alison Thomas — Spiritual Medium & Healer" />
+      <div class="divider"></div>
+      <p class="hero-quote">“Truth, evidence, and compassion — in every reading.”</p>
+      <div class="hero-cta-row">
+        <a href="#book" class="btn-gold">Book a Reading →</a>
+        <a href="#about" class="btn-outline-ivory">Learn More</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="inner">
+      <div class="portrait"><img src="images/alison-portrait.jpg" alt="Portrait of Alison Thomas" /></div>
+      <div class="eyebrow">A Warm Welcome</div>
+      <h2 class="hero-h">Honest, evidential readings — with heart.</h2>
+      <p class="hero-p">I'm Alison — a working spiritual medium, energy healer and former police detective. Every reading is rooted in detail, integrity and genuine connection with spirit.</p>
+      <dl class="stats">
+        <div><dt class="stat-label">Years Practising</dt><dd class="stat-val">10+</dd></div>
+        <div><dt class="stat-label">Countries Served</dt><dd class="stat-val">15+</dd></div>
+        <div><dt class="stat-label">Policing Years</dt><dd class="stat-val">17</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- Trust -->
+<section class="trust">
+  <div class="trust-inner">
+    <ul class="trust-grid" style="list-style: none;">
+      <li><div class="trust-val">10+</div><div class="trust-label">Years of Practice</div></li>
+      <li><div class="trust-val">17</div><div class="trust-label">Years Police Background</div></li>
+      <li><div class="trust-val">1 of 34</div><div class="trust-label">Pásale Healers Worldwide</div></li>
+      <li><div class="trust-val">100%</div><div class="trust-label">Honest Evidential Work</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about">
+  <div class="container about-grid">
+    <div class="about-img-wrap">
+      <div class="about-img"><img src="images/alison-portrait.jpg" alt="Alison Thomas in a quiet, warm setting" /></div>
+      <div class="about-img-accent"></div>
+    </div>
+    <div>
+      <span class="about-badge">
+        <svg class="about-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        International Medium — Isle of Man & Worldwide Online
+      </span>
+      <h2 class="about-h">A grounded approach to spirit.</h2>
+      <p class="about-p">For 17 years I served as a police detective in crime scene investigation. That work taught me to look closely, to test what I'm told, and to hold the truth above everything else. I bring the same discipline into my mediumship today.</p>
+      <p class="about-p">Based in Onchan on the Isle of Man, I work with clients across the world — online and in person. My readings are evidential: I aim to share specific, verifiable details from your loved ones so that what comes through feels unmistakably them.</p>
+      <p class="about-p">This work is sacred to me, but it isn't performance. No theatrics, no guesswork, no fishing — just honest connection, offered with care.</p>
+      <ul class="about-features" style="list-style: none;">
+        <li class="about-feat">
+          <span class="about-feat-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <div><div class="about-feat-title">Evidence First</div><div class="about-feat-sub">Names, places, memories — the details matter.</div></div>
+        </li>
+        <li class="about-feat">
+          <span class="about-feat-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+          <div><div class="about-feat-title">Held with Care</div><div class="about-feat-sub">A safe, steady space — whatever you're carrying.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="readings" class="services">
+  <div class="container">
+    <div class="services-head">
+      <span class="services-eyebrow">Readings & Sessions</span>
+      <h2 class="services-h">Ways we can work together.</h2>
+      <p class="services-p">Every session is held in confidence and tailored to you. Choose the path that calls to you — or write to me if you're not sure.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card">
+        <h3 class="service-title">Shamanic Power Retrieval</h3>
+        <div class="service-meta"><span>1–1.5 hrs</span><span>In person or online</span></div>
+        <p class="service-desc">Shamanic Power Retrieval is a deeply sacred healing practice that gently restores the parts of ourselves we may have lost through trauma, fear, or life's many challenges.</p>
+        <div class="service-price">£77</div>
+        <a href="mailto:hello@alisonthomasmedium.com?subject=Booking%20Request%20%E2%80%94%20Shamanic%20Power%20Retrieval" class="service-btn">Book Now</a>
+      </article>
+      <article class="service-card">
+        <h3 class="service-title">Pásale Healing</h3>
+        <div class="service-meta"><span>1–1.5 hrs</span><span>In person or online</span></div>
+        <p class="service-desc">Pásale is a sacred shamanic healing practice, gifted to me through the teachings of an Apache Warrior Shaman.</p>
+        <div class="service-price">£77</div>
+        <a href="mailto:hello@alisonthomasmedium.com?subject=Booking%20Request%20%E2%80%94%20P%C3%A1sale%20Healing" class="service-btn">Book Now</a>
+      </article>
+      <article class="service-card">
+        <h3 class="service-title">Psychic Tarot Card Reading</h3>
+        <div class="service-meta"><span>45 min</span><span>In person or online</span></div>
+        <p class="service-desc">I offer deeply intuitive, shamanic-led psychic readings that connect you with guidance, clarity, and insight.</p>
+        <div class="service-price">£45</div>
+        <a href="mailto:hello@alisonthomasmedium.com?subject=Booking%20Request%20%E2%80%94%20Psychic%20Tarot%20Card%20Reading" class="service-btn">Book Now</a>
+      </article>
+      <article class="service-card">
+        <h3 class="service-title">Rune Reading</h3>
+        <div class="service-meta"><span>45 min</span><span>In person or online</span></div>
+        <p class="service-desc">I offer rune readings rooted in the ancient Elder Futhark, drawing on Norse wisdom to illuminate your path.</p>
+        <div class="service-price">£45</div>
+        <a href="mailto:hello@alisonthomasmedium.com?subject=Booking%20Request%20%E2%80%94%20Rune%20Reading" class="service-btn">Book Now</a>
+      </article>
+      <article class="service-card">
+        <h3 class="service-title">Email Tarot or Rune Reading</h3>
+        <div class="service-meta"><span>Delivered within 24–48 hours</span></div>
+        <p class="service-desc">I offer intuitive distance readings via email — perfect if you prefer a written response you can revisit anytime.</p>
+        <div class="service-price">£29</div>
+        <a href="mailto:hello@alisonthomasmedium.com?subject=Booking%20Request%20%E2%80%94%20Email%20Tarot%20or%20Rune%20Reading" class="service-btn">Book Now</a>
+      </article>
+    </div>
+    <p class="services-note">Payment is taken securely at the time of booking. Sessions are delivered via Zoom for online readings.</p>
+  </div>
+</section>
+
+<!-- Booking -->
+<section id="book" class="booking">
+  <div class="booking-inner">
+    <img class="booking-logo" src="images/loggo.png" alt="Alison Thomas — Spiritual Medium & Healer" />
+    <div class="booking-eyebrow">Book a Session</div>
+    <h2 class="booking-h">A simple, gentle booking flow.</h2>
+    <p class="booking-p">Three steps — and you're held from there. If you'd prefer to speak before booking, I welcome a short email first.</p>
+    <ol class="booking-steps" style="list-style: none;">
+      <li>
+        <span class="step-icon"><svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        <div class="step-num">Step 1</div>
+        <h3 class="step-title">Choose Your Session</h3>
+        <p class="step-sub">Select the reading that feels right — mediumship, psychic, or a combination.</p>
+      </li>
+      <li>
+        <span class="step-icon"><svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+        <div class="step-num">Step 2</div>
+        <h3 class="step-title">Pick a Time</h3>
+        <p class="step-sub">Find a slot in my calendar that works for your time zone. All bookings are confirmed instantly.</p>
+      </li>
+      <li>
+        <span class="step-icon"><svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
+        <div class="step-num">Step 3</div>
+        <h3 class="step-title">Confirm & Pay</h3>
+        <p class="step-sub">Secure your session with a simple, encrypted payment. A Zoom link arrives by email.</p>
+      </li>
+    </ol>
+    <div class="calendly-placeholder">
+      <div class="calendly-ring"><span class="calendly-dot"></span></div>
+      <div class="calendly-label">Booking Calendar</div>
+      <div class="calendly-sub">Booking calendar loading… Calendly will be embedded here.</div>
+      <a href="mailto:hello@alisonthomasmedium.com" class="calendly-cta">Request a Session by Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="testimonials">
+  <div class="container">
+    <div class="test-head">
+      <div class="test-eyebrow">Kind Words</div>
+      <h2 class="test-h">From those I've sat with.</h2>
+      <div class="divider" style="background: var(--gold);"></div>
+    </div>
+    <div class="test-grid">
+      <figure class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote class="test-quote">“Alison brought through details only my mother would have known — her perfume, a song we used to sing, even the silly name she called our dog. I cried, but I left feeling held.”</blockquote>
+        <figcaption class="test-cite"><span class="test-dash"></span><div><div class="test-name">Sarah</div><div class="test-loc">Manchester, UK</div></div></figcaption>
+      </figure>
+      <figure class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote class="test-quote">“I came in skeptical. I left changed. There was no fishing, no vague statements. She told me things about my grandfather that I hadn't told anyone.”</blockquote>
+        <figcaption class="test-cite"><span class="test-dash"></span><div><div class="test-name">James</div><div class="test-loc">Dublin, Ireland</div></div></figcaption>
+      </figure>
+      <figure class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote class="test-quote">“Her background as a detective shows. She's careful, kind, and grounded. This is the most honest reading I've ever had.”</blockquote>
+        <figcaption class="test-cite"><span class="test-dash"></span><div><div class="test-name">Meredith</div><div class="test-loc">Vancouver, Canada</div></div></figcaption>
+      </figure>
+      <figure class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote class="test-quote">“I booked an online session from Australia and felt like she was sitting in the room with me. Warm, professional, and deeply gifted.”</blockquote>
+        <figcaption class="test-cite"><span class="test-dash"></span><div><div class="test-name">Elena</div><div class="test-loc">Melbourne, Australia</div></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <img class="footer-logo" src="images/loggo.png" alt="Alison Thomas — Spiritual Medium & Healer" />
+      <p class="footer-desc">Evidential mediumship and healing, offered with honesty from the Isle of Man to the world.</p>
+    </div>
+    <div>
+      <div class="footer-label">Explore</div>
+      <ul class="footer-list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#readings">Readings</a></li>
+        <li><a href="#book">Book a Session</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-label">Contact</div>
+      <ul class="footer-contact">
+        <li><svg class="icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Onchan, Isle of Man</span></li>
+        <li><svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg><a href="mailto:hello@alisonthomasmedium.com">hello@alisonthomasmedium.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 Alison Thomas Medium. All rights reserved.</p>
+    <p class="tagline">Truth · Evidence · Compassion</p>
+  </div>
+</footer>
+
+</body>
+</html>
