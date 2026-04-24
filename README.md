@@ -23,7 +23,11 @@ npx serve out
 
 ---
 
-## Deploy till GitHub Pages
+## Deploy till produktion
+
+Se [DEPLOY.md](./DEPLOY.md) för steg-för-steg-guide (`alisonthomasmedium.com` via Vercel).
+
+## Historiskt — GitHub Pages-deploy
 
 Deploy är helautomatisk — varje push till `main` bygger och publicerar sidan. Så här sätter du upp det en första gång:
 
