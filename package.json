@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "touch out/.nojekyll",
+    "postbuild": "test -d out && touch out/.nojekyll || true",
     "start": "next start",
     "lint": "eslint .",
     "smoketest": "node scripts/smoketest.mjs"
