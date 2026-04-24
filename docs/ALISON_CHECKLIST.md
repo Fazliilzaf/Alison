@@ -1,254 +1,124 @@
-# Your site launch — step by step
+# Your site launch — what you'll do
 
-Hello Alison — this is your personal checklist for getting **alisonthomasmedium.com** live. Total hands-on time is about **1 hour**, split into small steps over 1–2 days. Fazli handles the technical parts; your job is to create a few accounts and do one session with Google.
+Hello Alison — good news: Fazli will handle nearly all the technical work. You only have **one mandatory step**: a **15-minute video call with Fazli** (best case Friday morning, 25 April) so he can connect the booking calendar to your Google account.
 
-Read through this whole page first. Then come back to the top and start with Part 1.
+That's the only step Google's security rules make impossible to delegate. Everything else — hosting, database, domain changes, deployment — Fazli does on his own.
 
----
-
-## What you need before you begin
-
-- **A laptop** (not a phone — a couple of steps don't work on mobile).
-- **Your Gmail account:** `alithomasmedium@gmail.com`, and the password for it.
-- **Your phone**, for two-factor codes Google will send you.
-- **Your Squarespace login**, where `alisonthomasmedium.com` is registered.
-- A **notebook** or the Apple Notes app — you'll write down 2 passwords and 2 codes as you go.
-
-If you don't have your Squarespace password to hand, reset it now so you don't lose time later.
+Target launch day: **Tuesday 29 April**.
 
 ---
 
-## Who does what
+## What Fazli does (without you)
 
-**You do (in this order):**
-1. Create a GitHub account
-2. Google Cloud + Calendar session (Fazli will sit with you or guide you on a call — 20 min)
-3. Create an Upstash account (3 min)
-4. Create a Vercel account (5 min)
-5. Change your domain's DNS in Squarespace (5 min of clicking + 15 min waiting)
-6. Log in to your new admin page and check everything works
+- Creates the project on GitHub (the code storage)
+- Sets up Upstash (the small database for your weekly schedule)
+- Sets up Vercel (the service that runs your live website)
+- Changes the DNS so `alisonthomasmedium.com` points to the new site
+- Deploys, tests, fixes anything that breaks
+- Updates the old Squarespace site to the new one
 
-**Fazli does (in between your steps):**
-- Uploads the website code to GitHub
-- Sets up the server on Vercel
-- Connects all the keys and secrets
-- Fixes anything that breaks
-
-You will never need to look at code or the terminal.
+You won't need to log into any of these services. Fazli may later offer to transfer ownership to you so nothing is tied to him long-term — that's a 10-minute click session for a different day.
 
 ---
 
-## Part 1 — Create a GitHub account (5 minutes)
+## What you do
 
-GitHub is where the website's code lives. Even though you won't touch the code, the account needs to be in your name so you own it.
+### Part 1 — Book a 15-minute call with Fazli (today)
 
-1. Open <https://github.com/signup>
-2. Email: use `alithomasmedium@gmail.com`
-3. Create a password — **write it down in your notebook**
-4. Pick a username — something like `alisonthomas` or `alisonthomasmedium` is perfect
-5. Verify your email (GitHub will send a code to Gmail — paste it in)
-6. Choose the **Free** plan when asked
-7. Skip the "what do you want to do" questions — just click "Skip" / "Continue"
+Message him and choose any slot **Thursday evening or Friday 08:00–11:00 (UK time)**. It has to be a video call — Zoom, FaceTime, Google Meet, anything that lets you share your screen.
 
-When you see a page that says "Welcome to GitHub" with a big green button — you're done.
+Put it in the calendar. Set a 10-minute reminder.
 
-**Then: send Fazli your GitHub username.** He'll invite you to the code repository, and you'll get an email. Click **Accept invitation** in that email.
+### Part 2 — The Google Cloud session (15 minutes, the only step)
 
----
+During the call, do this at your laptop (not your phone):
 
-## Part 2 — Google Cloud + Calendar setup (25–30 minutes) ⚠️ most important step
+**Before the call — 2 minutes prep:**
 
-This step connects your booking calendar to your actual Google Calendar. Every event you add to your calendar (holiday, dentist, lunch) will automatically block that time from being booked. Every booking a client makes will show up as an event in your calendar with a Zoom link.
+1. Make sure you're **signed in to Gmail as `alithomasmedium@gmail.com`** in Safari or Chrome. If another Google account is active, sign out first. This is the single most important thing to get right — the call fails if the wrong account is used.
+2. Have your phone ready for any two-factor codes Google sends.
 
-> **Do this step while Fazli is on a call or video chat with you.** It's not hard, but it's easy to click the wrong button. Having him watching means if you get lost, he can say "click that one, not that one."
+**On the call — Fazli guides you:**
 
-The full walkthrough is in the file `BOOKING_SETUP.md` in the project (Fazli can share his screen on the file). Summary of what will happen:
+3. You share your screen.
+4. You open a page he tells you (`console.cloud.google.com`). You check the top-right corner says `alithomasmedium@gmail.com`.
+5. Fazli walks you through clicking through a few Google pages. He'll say "click the blue button", "agree to the terms", "accept the permission prompt". Everything is clicking what he tells you — no typing except your Gmail password once or twice.
+6. Near the end, a browser window opens asking "do you want this app to access your Google Calendar?". Click **Allow**.
+7. Fazli copies a code from his screen. Done.
 
-1. You open <https://console.cloud.google.com/> — make sure the top-right corner says `alithomasmedium@gmail.com`. **If it shows a different Google account, log out and back in.** This is the one step where the wrong account causes real problems.
-2. You create a new "project" called `alison-booking`
-3. You enable something called "Google Calendar API" (one click)
-4. You create "OAuth credentials" — basically, permission for the website to read your calendar on your behalf
-5. Fazli runs a small script on his computer that opens a browser window → you click **Allow** in that browser window → Google gives Fazli a long string called a "refresh token"
-6. Fazli saves the token somewhere safe
+Nothing on your calendar changes. Nothing gets published. The site just gets permission to read free/busy times and add new bookings.
 
-Nothing on your calendar changes. Nothing becomes public. The site can just *look* at your calendar availability and *add* new bookings.
-
-**At the end, keep these three things written down somewhere safe:**
-
-- Google Cloud **Client ID** (long string, looks like `123...abc.apps.googleusercontent.com`)
-- Google Cloud **Client Secret** (another long string)
-- Google **Refresh Token** (starts with `1//`)
-
-You'll need them in Part 4. Treat them like passwords — don't email them in plain text.
+**If Fazli gets stuck on a step, don't click randomly — pause and wait for him to say what to do.**
 
 ---
 
-## Part 3 — Create an Upstash account (3 minutes)
+## Part 3 — After launch (Sunday 27 April or Monday 28 April)
 
-Upstash is a free database. The website uses it to remember your weekly schedule (which you'll edit from the admin page). Without this, the schedule would reset every time the site restarts.
+Fazli will send you two things once the site is live:
 
-1. Open <https://upstash.com>
-2. Click **Sign up** → **Continue with GitHub** → it will ask permission → click **Authorize**
-3. Once you're in, click **Create Database**
-4. Name: `alison-admin`
-5. Type: **Redis**
-6. Region: **eu-west-1** (London — closest to the Isle of Man)
-7. Click **Create**
-8. On the database page, scroll down to the section called **REST API**
-9. You'll see two rows: **UPSTASH_REDIS_REST_URL** and **UPSTASH_REDIS_REST_TOKEN** — click the small "copy" icon next to each and paste them into your notebook
+- A link to your new admin page: `https://alisonthomasmedium.com/admin/login`
+- Your **admin password** (write it down in the notebook or Apple Notes — treat it like your email password)
 
-That's it. You won't ever need to open Upstash again.
+**Test it yourself — 5 minutes:**
 
----
+1. Open <https://alisonthomasmedium.com> in a browser you've never used for this before (or an incognito window). Click through the site. Try to book yourself into a slot tomorrow afternoon using a different email than your Gmail. You should receive a confirmation email and see the event in your Google Calendar.
 
-## Part 4 — Create a Vercel account and set up the website (10 minutes)
+2. Open <https://alisonthomasmedium.com/admin/login>, sign in with your admin password. You'll land on a page that shows your weekly schedule. Change one slot (e.g. mark Wednesday 15:00–17:00 unavailable) → click **Save**. Refresh the public site's booking section in a different tab and check the Wednesday afternoon slots are now blocked.
 
-Vercel is the company that runs your live website. It's free for a site your size, forever.
-
-1. Open <https://vercel.com/signup>
-2. Click **Continue with GitHub** → authorise it
-3. When asked about a plan, choose **Hobby** (free)
-4. Once logged in, click **Add New → Project** (top right)
-5. Find the repository Fazli invited you to — usually called something like `alisonthomasmedium` — and click **Import**
-
-Now you'll see a setup page. The only thing to change is **Environment Variables**:
-
-6. Click **Environment Variables** to expand that section
-7. Add these one at a time — click **Add Another** after each. **Names must be exact** (copy-paste from here):
-
-    | Name | What to paste |
-    |---|---|
-    | `GOOGLE_CLIENT_ID` | from Part 2 |
-    | `GOOGLE_CLIENT_SECRET` | from Part 2 |
-    | `GOOGLE_REFRESH_TOKEN` | from Part 2 |
-    | `GOOGLE_CALENDAR_ID` | just type the word `primary` |
-    | `ADMIN_PASSWORD` | pick a strong password — write it down, this is how you'll log in to /admin |
-    | `ADMIN_SESSION_SECRET` | type 30+ random characters (just mash the keyboard) |
-    | `UPSTASH_REDIS_REST_URL` | from Part 3 |
-    | `UPSTASH_REDIS_REST_TOKEN` | from Part 3 |
-
-8. Click **Deploy** at the bottom
-
-The site will build for about 2 minutes. You'll see a preview URL like `alisonthomasmedium-xyz.vercel.app` — click it.
-
-**At this point your site is LIVE on a temporary address. Click around — the booking calendar should show real times. Try a test booking on yourself to confirm it shows up in your Google Calendar.**
+If either step doesn't work, text Fazli a screenshot — don't panic-click in the admin.
 
 ---
 
-## Part 5 — Change your domain's DNS (10 minutes + waiting)
+## What you can change yourself — now vs later
 
-Right now your domain `alisonthomasmedium.com` points somewhere else (probably a Squarespace page). Let's change that to point to your new site on Vercel.
+**Right now, from `/admin`:**
 
-### 5a. In Vercel — get the DNS info
+- Which weekly hours are bookable (Mon–Fri, specific time windows)
+- Days off and holidays (just create a regular event in your Google Calendar — it blocks automatically)
+- See all upcoming bookings
 
-1. In Vercel, open your project → **Settings** (top bar) → **Domains** (left sidebar)
-2. In the text box, type `alisonthomasmedium.com` → click **Add**
-3. Vercel will show a box saying "Invalid Configuration" and give you the DNS records you need. **Keep this tab open.**
-4. Also add `www.alisonthomasmedium.com` the same way (so `www.` works too)
+**Not yet — ask Fazli until further notice:**
 
-### 5b. In Squarespace — update the DNS
-
-1. Open <https://account.squarespace.com/domains>
-2. Log in with your domain's email
-3. Click `alisonthomasmedium.com` → **DNS** (in the left menu)
-4. You'll see a list of existing records. **Find and delete** the ones that say:
-   - Type `A`, Host `@` (there are usually 4 of these, all with Squarespace IPs starting with `198.`)
-   - Type `CNAME`, Host `www`
-5. Now **add new records**:
-
-    | Type | Host | Value / Points to |
-    |---|---|---|
-    | `A` | `@` | `76.76.21.21` |
-    | `CNAME` | `www` | `cname.vercel-dns.com` |
-
-6. **Keep any MX records as they are** (those are for your email — we don't touch those).
-7. Click **Save**.
-
-### 5c. Wait 15 minutes
-
-DNS changes take a few minutes to propagate around the internet. Go make a coffee. Then:
-
-- Open <https://alisonthomasmedium.com> in your browser
-- If it shows your new site — 🎉 done
-- If it still shows the old Squarespace page — close the tab, wait another 10 min, try again. Sometimes browsers cache the old version — try a different browser or an incognito window.
-
-Within a few more minutes, Vercel will automatically add the little padlock (https) to your address. If you see a warning about a certificate, wait another 10 min and refresh.
-
----
-
-## Part 6 — First admin login (2 minutes)
-
-Your site is now live. Let's make sure you can manage it.
-
-1. Open <https://alisonthomasmedium.com/admin/login>
-2. Type the `ADMIN_PASSWORD` you chose in Part 4
-3. You should land on the admin dashboard
-
-From here you can:
-- **Edit your weekly schedule** (which hours are bookable on which days)
-- **Block specific dates** (holidays, days off)
-- See upcoming bookings
-
-Try changing a slot (e.g. block tomorrow from 3–4pm) → save → open `alisonthomasmedium.com/#book` in a different browser → confirm that 3–4pm tomorrow is no longer bookable.
-
-If that works — **you're fully set up**.
-
----
-
-## What you can and can't change yourself (for now)
-
-**You can change yourself** via `/admin`:
-- Weekly booking hours
-- Days off / holidays
-- See bookings
-
-**You CAN'T change yourself yet** (ask Fazli for now):
-- Prices, service descriptions, service durations
+- Prices, service names, service descriptions
 - Testimonials
-- Hero text, About text
+- The "about me" text or hero wording
 - Contact details, social media links
 
-After launch, Fazli will build an extended admin so you can edit all the text yourself too. Plan is to have that ready during the first weeks of May. Until then, just text/email Fazli with what you want changed — it takes him 5 minutes per change.
+After launch, Fazli will build an extended admin so you can edit all of the above yourself. Plan is to have that ready in the first weeks of May. Until then, text him a sentence like "please change the Rune Reading price from £45 to £50" — it's a 5-minute fix for him.
 
 ---
 
 ## If something goes wrong
 
-**"My password isn't working on /admin"** → make sure you're using the `ADMIN_PASSWORD` from Part 4, not your Gmail password. If you forgot it, go to Vercel → Settings → Environment Variables → edit `ADMIN_PASSWORD`, then click Redeploy on the latest deployment.
+**Can't get into `/admin`** → use the password Fazli sent you. If that doesn't work, he can reset it in under a minute.
 
-**"The booking calendar is empty"** → either the Google credentials are wrong, or you haven't set your working hours in `/admin/schedule` yet. Log in and set Mon–Fri 09:00–17:00 to start.
+**Booking calendar is empty on the live site** → either your working hours aren't set yet (log into admin and set Mon–Fri 09:00–17:00 as a baseline), or Google Calendar isn't connected yet (text Fazli).
 
-**"A test booking didn't show up in my calendar"** → check `GOOGLE_CALENDAR_ID` in Vercel. It should be `primary` (lowercase, no quotes).
+**A test booking didn't show up in your Google Calendar** → Fazli can check the logs in under a minute. Don't try to fix it yourself.
 
-**"My site still shows the old page after changing DNS"** → wait. Up to 48h in rare cases, but usually 15–30 min. Try an incognito window.
-
-**Anything else** → text Fazli a screenshot. Don't panic-click in Vercel or Google Cloud while you wait for his reply — you can make things worse by undoing the wrong thing.
+**Anything else** → text a screenshot. Fazli will reply within the day.
 
 ---
 
-## Glossary (in case a word confuses you)
+## Glossary (if a word confuses you)
 
-- **Repository / repo:** the folder on GitHub where the site's code lives
+- **Repository / repo:** the folder on GitHub where the site's code lives (you'll never see it)
 - **Deploy:** putting a new version of the site online
 - **DNS:** the "phone book" of the internet — maps `alisonthomasmedium.com` to a specific server
-- **Environment variables:** settings / secrets the website reads at startup (like API keys)
-- **OAuth:** the "Allow this app to access my Google Calendar" permission flow
-- **API:** a way for two programs to talk to each other (your site talks to Google Calendar through one)
-- **Token:** a long secret string, like a password for machines
+- **OAuth:** the "Allow this app to access my Google Calendar" permission we set up in Part 2
+- **Admin:** your private control panel at `/admin/login`
 
 ---
 
-## Deadline check
+## Timeline
 
-Target: site live on `alisonthomasmedium.com` by **Tuesday 29 April**.
+| Day | What happens |
+|---|---|
+| Thu 24/4 | Fazli sets up GitHub, Upstash, Vercel. Site goes live on a temporary `*.vercel.app` URL. |
+| Fri 25/4 morning | **You + Fazli — 15 min video call** for Google Cloud (Part 2 above). |
+| Fri 25/4 afternoon | Fazli plugs in the Google credentials, changes DNS so `alisonthomasmedium.com` points to the new site. |
+| Sat 26/4 – Sun 27/4 | DNS propagates, HTTPS certificate auto-issued, Fazli polishes anything that looks off on the real URL. |
+| Sun 27/4 or Mon 28/4 | **You test it yourself** (Part 3 above). |
+| Tue 29/4 | **Launch day** — share the URL, post on social media, update your business cards. |
 
-Best schedule, working backwards:
-
-- **Thu 24/4 (today):** Part 1 done. Book a 30-min slot with Fazli for Part 2 today or Friday morning.
-- **Fri 25/4:** Part 2, 3, 4. Site goes live on `*.vercel.app`.
-- **Sat 26/4:** DNS change (Part 5). Weekend for propagation + testing.
-- **Sun 27/4:** You test the site as if you were a client. Book yourself an appointment. Log in to admin.
-- **Mon 28/4:** Fazli fixes any issues you report.
-- **Tue 29/4:** Launch publicly — share the link, post on social media, etc.
-
-If any step slips by more than a day, text Fazli immediately so we can adjust.
+If you can't do the 15-minute call Friday morning, text Fazli today so he can move the timeline without losing the 29 April target.
