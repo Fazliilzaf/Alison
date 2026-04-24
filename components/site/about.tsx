@@ -49,22 +49,39 @@ export function About() {
 
           <div className="mt-6 space-y-5 text-charcoal/85 leading-relaxed text-pretty">
             <p>
-              For 17 years I served as a police detective in crime scene
-              investigation. That work taught me to look closely, to test what
-              I&apos;m told, and to hold the truth above everything else. I
-              bring the same discipline into my mediumship today.
+              Welcome and thank you for visiting. My path is rooted in the
+              sacred work of spiritual and psychic connection, offering
+              guidance, clarity, and healing from a place of deep compassion
+              and truth. Whether you&apos;re seeking to reconnect with loved
+              ones who have passed, or you&apos;re looking to awaken your own
+              inner wisdom and healing power, this space is for you.
             </p>
             <p>
-              Based in Onchan on the Isle of Man, I work with clients across the
-              world — online and in person. My readings are evidential: I aim
-              to share specific, verifiable details from your loved ones so
-              that what comes through feels unmistakably them.
+              I am a natural medium, born with psychic awareness; however, my
+              spiritual gifts truly awakened over a decade ago following a
+              profound near-death experience with sepsis that changed my life
+              forever. Prior to that, I served as a Police Officer for 17
+              years, specialising in crime scene investigation. That foundation
+              gave me a deep respect for truth, evidence, and integrity —
+              values I now carry into my work as an evidential medium.
+              Providing clear, validating messages from loved ones in spirit
+              is not only my passion, but my purpose.
             </p>
             <p>
-              This work is sacred to me, but it isn&apos;t performance. No
-              theatrics, no guesswork, no fishing — just honest connection,
-              offered with care.
+              As an international medium, I have the privilege of connecting
+              with people around the world, offering one-to-one readings and
+              group demonstrations through online platforms. With a blend of
+              psychic insight and shamanic healing practices, I hold space for
+              transformation — helping you navigate life&apos;s mysteries,
+              restore balance, and walk your spiritual path with greater
+              purpose and peace.
             </p>
+            <p>
+              It is my honour to support you in remembering your own light and
+              reclaiming your connection to the seen and unseen world.
+              Together, we journey toward healing, love, and empowerment.
+            </p>
+            <p className="font-serif italic text-navy/80">Ali x</p>
           </div>
 
           <ul className="mt-8 grid sm:grid-cols-2 gap-4">
