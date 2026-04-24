@@ -4,6 +4,15 @@ En ordnad checklista, i rätt följd. Hela flödet tar ~45 min totalt (det mesta
 
 ---
 
+## Deploy-strategi: staged rollout
+
+**Den gamla Squarespace-sajten blir kvar** på `alisonthomasmedium.com` tills nya sajten är testad och godkänd. Nya sajten deployas först till en `*.vercel.app`-URL → testas → först DÅ byter vi DNS. Om något går fel är rollback trivialt.
+
+Timeline:
+- Torsdag–fredag: nya sajten live på test-URL
+- Helg: Alison testar via test-URL
+- Tisdag 29/4: DNS-swap → nya sajten blir `alisonthomasmedium.com`
+
 ## Status just nu
 
 - ✅ Kod committad lokalt (5 commits på `main`-branchen)

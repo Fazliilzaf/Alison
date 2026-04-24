@@ -112,13 +112,16 @@ After launch, Fazli will build an extended admin so you can edit all of the abov
 
 ## Timeline
 
+Your existing Squarespace site stays live at `alisonthomasmedium.com` until launch day. The new site is tested on a temporary URL first — that way we have an instant rollback if anything goes wrong.
+
 | Day | What happens |
 |---|---|
-| Thu 24/4 | Fazli sets up GitHub, Upstash, Vercel. Site goes live on a temporary `*.vercel.app` URL. |
-| Fri 25/4 morning | **You + Fazli — 15 min video call** for Google Cloud (Part 2 above). |
-| Fri 25/4 afternoon | Fazli plugs in the Google credentials, changes DNS so `alisonthomasmedium.com` points to the new site. |
-| Sat 26/4 – Sun 27/4 | DNS propagates, HTTPS certificate auto-issued, Fazli polishes anything that looks off on the real URL. |
-| Sun 27/4 or Mon 28/4 | **You test it yourself** (Part 3 above). |
-| Tue 29/4 | **Launch day** — share the URL, post on social media, update your business cards. |
+| Thu 24/4 | Fazli sets up GitHub, Upstash, Vercel. New site goes live on a temporary URL like `alisonthomasmedium-xyz.vercel.app`. Your real domain still shows the old Squarespace site. |
+| Fri 25/4 morning | **You + Fazli — 15 min video call** for Google Cloud (Part 2 above). Right after, the booking calendar comes alive on the temporary URL. |
+| Sat 26/4 – Sun 27/4 | **You test the new site using the temporary URL** — book yourself an appointment, try the admin page, change your schedule. Nothing you do here is public yet. Fazli fixes anything you flag. |
+| Mon 28/4 | Final checks. Fazli pauses the old Acuity booking in Squarespace so future bookings only land on the new site. |
+| Tue 29/4 | **Launch day.** Fazli switches DNS so `alisonthomasmedium.com` points to the new site. Within 15–30 min the new site is live on your real domain. Share the URL, post on social media, update business cards. |
+
+**Rollback plan:** if something breaks right after launch, Fazli reverts the DNS in 5 minutes and your old Squarespace site is back. Nothing is deleted — both sites coexist until we're certain the new one is stable.
 
 If you can't do the 15-minute call Friday morning, text Fazli today so he can move the timeline without losing the 29 April target.
