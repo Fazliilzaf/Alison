@@ -1,4 +1,9 @@
+"use client"
+
 import Link from "next/link"
+import { useRef } from "react"
+import { Mail } from "lucide-react"
+import { useReveal } from "@/hooks/use-reveal"
 
 const services = [
   {
@@ -37,24 +42,64 @@ const services = [
       "I offer rune readings rooted in the ancient Elder Futhark, drawing on Norse wisdom to illuminate your path.",
     emailSubject: "Booking Request — Rune Reading",
   },
-  {
-    title: "Email Tarot or Rune Reading",
-    duration: null,
-    price: "£29",
-    delivery: "Delivered within 24–48 hours",
-    description:
-      "I offer intuitive distance readings via email — perfect if you prefer a written response you can revisit anytime.",
-    emailSubject: "Booking Request — Email Tarot or Rune Reading",
-  },
 ]
 
-export function Services() {
+const emailReading = {
+  title: "Email Tarot or Rune Reading",
+  price: "£29",
+  delivery: "Delivered within 24–48 hours",
+  description:
+    "Intuitive distance readings via email — perfect if you prefer a written response you can revisit anytime.",
+  emailSubject: "Booking Request — Email Tarot or Rune Reading",
+}
+
+/** Subtil 3D-tilt på hover (max 4°). Inaktiv på touch + reduced-motion. */
+function TiltCard({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  const ref = useRef<HTMLElement>(null)
+
+  const onMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = ref.current
+    if (!el) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (window.matchMedia("(hover: none)").matches) return
+    const r = el.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width - 0.5
+    const y = (e.clientY - r.top) / r.height - 0.5
+    el.style.transform = `perspective(900px) rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 4).toFixed(2)}deg) translateY(-3px)`
+  }
+
+  const onLeave = () => {
+    if (ref.current) ref.current.style.transform = ""
+  }
+
   return (
-    <section id="readings" className="relative bg-sage py-10 md:py-14">
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-gold/40"
-      />
+    <article
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={
+        "transition-transform duration-300 ease-out [transform-style:preserve-3d] " +
+        className
+      }
+    >
+      {children}
+    </article>
+  )
+}
+
+export function Services() {
+  const { ref: gridRef, shown: gridShown } = useReveal<HTMLDivElement>()
+  const { ref: emailRef, shown: emailShown } = useReveal<HTMLElement>()
+
+  return (
+    <section id="readings" className="relative bg-sage py-16 md:py-24">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gold/40" />
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-[11px] tracking-[0.28em] uppercase text-ivory/90">
@@ -69,11 +114,16 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 4 live-tjänster i 2x2 (sm) eller 4-kol (lg), staggered reveal */}
+        <div
+          ref={gridRef}
+          data-shown={gridShown}
+          className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal-stagger"
+        >
           {services.map((s) => (
-            <article
+            <TiltCard
               key={s.title}
-              className="group relative flex flex-col rounded-sm border border-gold bg-sand p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group relative flex flex-col rounded-sm border border-gold bg-sand p-6 shadow-md hover:shadow-xl"
             >
               <div
                 aria-hidden
@@ -107,9 +157,44 @@ export function Services() {
                   Book Now
                 </Link>
               </div>
-            </article>
+            </TiltCard>
           ))}
         </div>
+
+        {/* Email-läsningen — distinkt asynkron upplevelse, eget brett kort */}
+        <article
+          ref={emailRef}
+          data-shown={emailShown}
+          className="reveal mt-6 rounded-sm border border-gold/70 bg-ivory/95 p-6 md:p-8 md:flex md:items-center md:justify-between md:gap-10 shadow-md"
+        >
+          <div className="md:flex md:items-start md:gap-5">
+            <span className="hidden md:inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-dark">
+              <Mail className="h-5 w-5" />
+            </span>
+            <div>
+              <span className="text-[11px] tracking-[0.28em] uppercase text-burgundy/80">
+                Asynchronous · By Email
+              </span>
+              <h3 className="mt-1 font-serif text-2xl md:text-3xl text-navy text-balance">
+                {emailReading.title}
+              </h3>
+              <p className="mt-2 text-charcoal/75 max-w-prose leading-relaxed">
+                {emailReading.description} {emailReading.delivery}.
+              </p>
+            </div>
+          </div>
+          <div className="mt-5 md:mt-0 flex items-center md:flex-col md:items-end gap-4 md:gap-3 shrink-0">
+            <span className="font-serif text-3xl text-gold-dark">
+              {emailReading.price}
+            </span>
+            <Link
+              href={`mailto:hello@alisonthomasmedium.com?subject=${encodeURIComponent(emailReading.emailSubject)}`}
+              className="inline-flex items-center justify-center rounded-full bg-navy px-6 py-2.5 text-sm font-medium text-ivory transition-colors hover:bg-navy-dark"
+            >
+              Request Reading
+            </Link>
+          </div>
+        </article>
 
         <p className="mt-10 text-center text-ivory/80 text-sm">
           Payment is taken securely at the time of booking. Sessions are

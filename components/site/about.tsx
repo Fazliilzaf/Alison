@@ -1,27 +1,43 @@
+"use client"
+
 import Image from "next/image"
 import { Globe, ShieldCheck, Heart } from "lucide-react"
+import { useReveal } from "@/hooks/use-reveal"
 
 export function About() {
+  const { ref: imageRef, shown: imageShown } = useReveal<HTMLDivElement>()
+  const { ref: textRef, shown: textShown } = useReveal<HTMLDivElement>()
+
   return (
-    <section id="about" className="bg-cream py-10 md:py-14">
+    <section id="about" className="bg-cream py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div className="relative">
+        <div ref={imageRef} className="group relative reveal" data-shown={imageShown}>
           <div className="relative aspect-[4/5] w-full max-w-md mx-auto overflow-hidden rounded-sm shadow-xl">
             <Image
               src="/images/alison-portrait.jpg"
               alt="Alison Thomas in a quiet, warm setting"
               fill
               sizes="(min-width: 768px) 40vw, 80vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.03]"
             />
           </div>
+          {/* Dekorativ gold-border som glider in i sin offset när bilden syns */}
           <div
             aria-hidden
-            className="absolute -z-0 inset-0 translate-x-4 translate-y-4 border border-gold/60 rounded-sm max-w-md mx-auto"
+            className={
+              "pointer-events-none absolute -z-0 inset-0 border border-gold/60 rounded-sm max-w-md mx-auto transition-transform duration-[1400ms] ease-out " +
+              (imageShown
+                ? "translate-x-4 translate-y-4"
+                : "translate-x-0 translate-y-0")
+            }
           />
         </div>
 
-        <div>
+        <div
+          ref={textRef}
+          data-shown={textShown}
+          className="reveal reveal-late"
+        >
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/60 bg-ivory px-4 py-1.5 text-[11px] tracking-[0.24em] uppercase text-navy/80">
             <Globe className="h-3.5 w-3.5 text-turquoise" />
             International Medium — Isle of Man &amp; Worldwide Online

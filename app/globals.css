@@ -85,10 +85,18 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  /* Tydlig, brand-trogen fokusring för tangentbordsnav — utan att skrika åt muspekaren */
+  *:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
   html {
     scroll-behavior: smooth;
+    /* Sticky header är ~5rem hög — undvik att ankarlänkar göms bakom den */
+    scroll-padding-top: 5rem;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
@@ -100,12 +108,35 @@
     @apply font-serif;
     letter-spacing: -0.01em;
   }
+
+  /* Diskret, brand-tonad scrollbar (WebKit/Blink). Firefox-ekvivalent nedan. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--cream);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold-dark);
+    border-radius: 999px;
+    border: 2px solid var(--cream);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--navy);
+  }
+  html {
+    scrollbar-color: var(--gold-dark) var(--cream);
+    scrollbar-width: thin;
+  }
 }
 
 @layer utilities {
   .font-script {
     font-family: var(--font-script);
   }
+
+  /* Befintlig load-in (används i hero-citat etc.) */
   .fade-in-up {
     opacity: 0;
     transform: translateY(16px);
@@ -125,5 +156,99 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* Scroll-driven reveal — flippas av useReveal via data-shown="true" */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal[data-shown='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger — barnen reser sig sekventiellt när containern blir shown */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-stagger[data-shown='true'] > * {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-stagger[data-shown='true'] > *:nth-child(1) {
+    transition-delay: 0ms;
+  }
+  .reveal-stagger[data-shown='true'] > *:nth-child(2) {
+    transition-delay: 90ms;
+  }
+  .reveal-stagger[data-shown='true'] > *:nth-child(3) {
+    transition-delay: 180ms;
+  }
+  .reveal-stagger[data-shown='true'] > *:nth-child(4) {
+    transition-delay: 270ms;
+  }
+  .reveal-stagger[data-shown='true'] > *:nth-child(5) {
+    transition-delay: 360ms;
+  }
+  .reveal-stagger[data-shown='true'] > *:nth-child(n + 6) {
+    transition-delay: 450ms;
+  }
+
+  /* Sekundär reveal (för text som ska komma efter en bild) */
+  .reveal-late {
+    transition-delay: 200ms;
+  }
+
+  /* Marquee — lugn, oändlig horisontell rörelse */
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 60s linear infinite;
+    will-change: transform;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Universellt: respektera reduced-motion. Scroll-reveals visas instant via JS-hooken,
+   men vi nollar även CSS-animationer/transitions för säkerhets skull. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .fade-in-up,
+  .fade-in-up-delay-1,
+  .fade-in-up-delay-2,
+  .fade-in-up-delay-3 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }

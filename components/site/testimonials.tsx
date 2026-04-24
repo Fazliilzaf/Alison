@@ -1,4 +1,7 @@
+"use client"
+
 import { Star, Quote } from "lucide-react"
+import { useReveal } from "@/hooks/use-reveal"
 
 const testimonials = [
   {
@@ -27,11 +30,32 @@ const testimonials = [
   },
 ]
 
+const marqueeNames = [
+  "Sarah · Manchester",
+  "James · Dublin",
+  "Meredith · Vancouver",
+  "Elena · Melbourne",
+  "Hanna · Stockholm",
+  "Patrick · Cork",
+  "Aisha · London",
+  "Linnea · Oslo",
+]
+
 export function Testimonials() {
+  const { ref: headerRef, shown: headerShown } = useReveal<HTMLDivElement>()
+  const { ref: gridRef, shown: gridShown } = useReveal<HTMLDivElement>()
+
+  // Dubblera listan så marquee-loopen ser sömlös ut
+  const marqueeItems = [...marqueeNames, ...marqueeNames]
+
   return (
-    <section id="testimonials" className="bg-ivory py-5 md:py-7">
+    <section id="testimonials" className="bg-ivory py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="text-center max-w-2xl mx-auto">
+        <div
+          ref={headerRef}
+          data-shown={headerShown}
+          className="reveal text-center max-w-2xl mx-auto"
+        >
           <span className="text-[11px] tracking-[0.28em] uppercase text-burgundy">
             Kind Words
           </span>
@@ -41,44 +65,57 @@ export function Testimonials() {
           <div className="mt-5 mx-auto h-px w-16 bg-gold" />
         </div>
 
-        <div className="mt-8 grid md:grid-cols-2 gap-2">
+        {/* Stilla horisontell rörelse av namn — bekräftelse på vilka som suttit med Alison */}
+        <div
+          aria-hidden
+          className="mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+        >
+          <div className="marquee-track gap-12 whitespace-nowrap text-[11px] tracking-[0.32em] uppercase text-charcoal/40">
+            {marqueeItems.map((n, i) => (
+              <span key={i} className="inline-flex items-center gap-12">
+                <span>{n}</span>
+                <span className="text-gold/70">✦</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div
+          ref={gridRef}
+          data-shown={gridShown}
+          className="mt-12 grid md:grid-cols-2 gap-6 lg:gap-8 reveal-stagger"
+        >
           {testimonials.map((t, i) => (
             <figure
               key={i}
-              className="relative rounded-sm border border-gold/40 bg-cream p-4 shadow-sm"
+              className="relative rounded-sm border border-gold/40 bg-cream p-6 md:p-7 shadow-sm transition-shadow duration-300 hover:shadow-md"
             >
               <Quote
                 aria-hidden
-                className="absolute -top-2.5 left-4 h-5 w-5 text-gold bg-ivory px-0.5"
+                className="absolute -top-2.5 left-5 h-5 w-5 text-gold bg-ivory px-0.5"
               />
               <div className="flex gap-0.5 text-gold">
                 {Array.from({ length: 5 }).map((_, idx) => (
                   <Star
                     key={idx}
-                    className="h-3 w-3 fill-current"
+                    className="h-3.5 w-3.5 fill-current"
                     aria-hidden
                   />
                 ))}
                 <span className="sr-only">5 out of 5 stars</span>
               </div>
 
-              <blockquote
-                className="mt-3 font-serif italic text-charcoal/90 leading-relaxed text-pretty"
-                style={{ fontSize: "13px" }}
-              >
+              <blockquote className="mt-4 font-serif italic text-charcoal/90 leading-relaxed text-pretty text-[15px] md:text-base">
                 {`\u201C${t.quote}\u201D`}
               </blockquote>
 
-              <figcaption className="mt-3 flex items-center gap-2">
-                <span
-                  aria-hidden
-                  className="h-px w-6 bg-gold"
-                />
+              <figcaption className="mt-5 flex items-center gap-3">
+                <span aria-hidden className="h-px w-8 bg-gold" />
                 <div>
-                  <p className="font-serif text-navy text-sm leading-none">
+                  <p className="font-serif text-navy text-base leading-none">
                     {t.name}
                   </p>
-                  <p className="mt-0.5 text-[10px] tracking-[0.18em] uppercase text-charcoal/60">
+                  <p className="mt-1 text-[10px] tracking-[0.2em] uppercase text-charcoal/60">
                     {t.location}
                   </p>
                 </div>

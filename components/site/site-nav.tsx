@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
@@ -14,22 +14,43 @@ const links = [
 
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const [progress, setProgress] = useState(0)
   const [open, setOpen] = useState(false)
+  const lastY = useRef(0)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 12)
+
+      // Auto-hide när vi scrollar ner förbi ett tröskelvärde, visa när vi går upp
+      const goingDown = y > lastY.current
+      setHidden(y > 160 && goingDown)
+      lastY.current = y
+
+      // Sidans scroll-progress (0–100) — ritas som en tunn gold-linje längst ner i headern
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(max > 0 ? Math.min(100, (y / max) * 100) : 0)
+    }
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // När mobilmenyn är öppen ska headern aldrig döljas
+  const shouldHide = hidden && !open
+
   return (
     <header
       className={cn(
-        "sticky top-0 inset-x-0 z-50 transition-all duration-300",
+        // transition-all för att få mjuka övergångar på alla properties som ändras
+        // (bg, backdrop, border, shadow, transform). Tailwind v4 avskärmar standard-transitions.
+        "sticky top-0 inset-x-0 z-50 transition-all duration-500 ease-out",
         scrolled
           ? "bg-ivory/90 backdrop-blur border-b border-gold/30 shadow-[0_1px_0_0_rgba(217,199,142,0.15)]"
           : "bg-transparent",
+        shouldHide ? "-translate-y-full" : "translate-y-0",
       )}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
@@ -40,7 +61,7 @@ export function SiteNav() {
         >
           <span
             aria-hidden
-            className="relative flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full border border-gold shrink-0 overflow-hidden"
+            className="relative flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full border border-gold shrink-0 overflow-hidden transition-transform duration-300 group-hover:scale-[1.04]"
             style={{ backgroundColor: "#3E4E68" }}
           >
             <Image
@@ -66,7 +87,7 @@ export function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm tracking-wide text-charcoal/80 hover:text-burgundy transition-colors"
+              className="relative text-sm tracking-wide text-charcoal/80 transition-colors hover:text-burgundy after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-burgundy after:transition-[width] after:duration-300 hover:after:w-full"
             >
               {l.label}
             </Link>
@@ -113,6 +134,17 @@ export function SiteNav() {
           </nav>
         </div>
       )}
+
+      {/* Scroll-progress — tunn gold-linje längst ner i headern */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-px bg-gold/15"
+      >
+        <div
+          className="h-full bg-gold transition-[width] duration-150 ease-out"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
     </header>
   )
 }

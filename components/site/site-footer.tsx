@@ -1,6 +1,9 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Mail, MapPin, Instagram, Facebook } from "lucide-react"
+import { useReveal } from "@/hooks/use-reveal"
 
 // TODO: fyll i riktiga profil-URL:er när de finns. Tomma strängar = ikonen döljs.
 const SOCIAL_LINKS = {
@@ -9,28 +12,46 @@ const SOCIAL_LINKS = {
 }
 
 export function SiteFooter() {
+  const { ref, shown } = useReveal<HTMLDivElement>()
+
   return (
     <footer className="text-ivory" style={{ backgroundColor: "#3E4E68" }}>
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-8">
+      <div
+        ref={ref}
+        data-shown={shown}
+        className="reveal mx-auto max-w-6xl px-5 sm:px-8 py-14"
+      >
         <div className="grid md:grid-cols-3 gap-12">
           <div>
-            <Image
-              src="/images/loggo.png"
-              alt="Alison Thomas — Spiritual Medium & Healer"
-              width={400}
-              height={400}
-              className="block h-32 w-32 object-contain"
-              style={{
-                background: "transparent",
-                border: 0,
-                padding: 0,
-                boxShadow: "none",
-                borderRadius: 0,
-              }}
-            />
-            <p className="mt-4 text-ivory/70 text-sm leading-relaxed max-w-xs">
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40"
+                style={{ backgroundColor: "#2D3A4F" }}
+              >
+                <Image
+                  src="/images/tree-only.png"
+                  alt=""
+                  width={120}
+                  height={120}
+                  className="h-[68%] w-[68%] object-contain"
+                />
+              </span>
+              <span className="flex flex-col leading-none">
+                <span className="font-script text-gold text-2xl -mb-0.5">
+                  Alison Thomas
+                </span>
+                <span className="text-[10px] tracking-[0.22em] uppercase text-ivory/60">
+                  Spiritual Medium
+                </span>
+              </span>
+            </div>
+            <p className="mt-5 text-ivory/70 text-sm leading-relaxed max-w-xs">
               Evidential mediumship and healing, offered with honesty from the
               Isle of Man to the world.
+            </p>
+            <p className="mt-4 font-script text-gold/90 text-2xl">
+              With care
             </p>
           </div>
 
