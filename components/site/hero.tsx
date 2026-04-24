@@ -110,7 +110,7 @@ export function Hero() {
               alt="Portrait of Alison Thomas"
               width={520}
               height={520}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-[center_22%]"
               priority
             />
           </div>
