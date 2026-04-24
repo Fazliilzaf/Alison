@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Brand palette */
+  --ivory: #fffdf8;
+  --cream: #fbf7f0;
+  --gold: #d9c78e;
+  --gold-dark: #c2ae6f;
+  --navy: #3e4e68;
+  --navy-dark: #2d3a4f;
+  --sage: #7a9a87;
+  --burgundy: #a86a72;
+  --turquoise: #7fb8b3;
+  --sand: #e8dccb;
+  --charcoal: #2a2a2a;
+
+  /* shadcn tokens mapped to brand */
+  --background: var(--ivory);
+  --foreground: var(--charcoal);
+  --card: var(--cream);
+  --card-foreground: var(--charcoal);
+  --popover: var(--ivory);
+  --popover-foreground: var(--charcoal);
+  --primary: var(--navy);
+  --primary-foreground: var(--ivory);
+  --secondary: var(--sand);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--cream);
+  --muted-foreground: #5a5a5a;
+  --accent: var(--gold);
+  --accent-foreground: var(--charcoal);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: #e7dec8;
+  --input: #e7dec8;
+  --ring: var(--gold);
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-script: var(--font-pinyon), 'Pinyon Script', cursive;
+
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-sage: var(--sage);
+  --color-burgundy: var(--burgundy);
+  --color-turquoise: var(--turquoise);
+  --color-sand: var(--sand);
+  --color-charcoal: var(--charcoal);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-script {
+    font-family: var(--font-script);
+  }
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeInUp 0.9s ease-out forwards;
+  }
+  .fade-in-up-delay-1 {
+    animation-delay: 0.15s;
+  }
+  .fade-in-up-delay-2 {
+    animation-delay: 0.3s;
+  }
+  .fade-in-up-delay-3 {
+    animation-delay: 0.45s;
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
