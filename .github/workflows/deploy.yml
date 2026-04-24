@@ -1,10 +1,10 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (static fallback only)
 
+# Projektet deployas normalt till Vercel (full Next.js med API-routes).
+# Denna workflow bygger en statisk export till GitHub Pages — kör BARA om
+# du manuellt vill publicera den statiska versionen (utan bokningssystem).
+# Aktiveras endast via "Run workflow"-knappen i Actions-fliken.
 on:
-  # Kör vid push till main
-  push:
-    branches: [main]
-  # Tillåt manuell trigger från Actions-fliken
   workflow_dispatch:
 
 # Behörigheter som GitHub Pages-deployment kräver
@@ -53,6 +53,7 @@ jobs:
       - name: Build (Next.js static export)
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          STATIC_EXPORT: "true"
         run: pnpm build
 
       - name: Upload artifact

@@ -7,7 +7,8 @@
     "build": "next build",
     "postbuild": "touch out/.nojekyll",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "smoketest": "node scripts/smoketest.mjs"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.17",
