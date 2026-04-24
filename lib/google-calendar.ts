@@ -85,8 +85,11 @@ export async function getBusyIntervals(
 }
 
 /**
- * Create a booking event on Alison's calendar and (optionally) send an
- * invite to the customer.
+ * Create a booking event on Alison's calendar.
+ *
+ * A Google Meet link is generated automatically and sent with the
+ * calendar invite to the customer. Alison will see the same link
+ * in the event on her own calendar.
  */
 export async function createBookingEvent(params: {
   summary: string
@@ -101,9 +104,16 @@ export async function createBookingEvent(params: {
   const auth = getOAuth2Client()
   const calendar = google.calendar({ version: "v3", auth })
 
+  // Unique requestId so Google knows this isn't a retry of an older request.
+  const requestId =
+    (typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `booking-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`)
+
   const res = await calendar.events.insert({
     calendarId: calendarId(),
     sendUpdates: params.sendInvite ? "all" : "none",
+    conferenceDataVersion: 1, // required so Google actually creates the Meet link
     requestBody: {
       summary: params.summary,
       description: params.description,
@@ -123,6 +133,12 @@ export async function createBookingEvent(params: {
             },
           ]
         : undefined,
+      conferenceData: {
+        createRequest: {
+          requestId,
+          conferenceSolutionKey: { type: "hangoutsMeet" },
+        },
+      },
       reminders: {
         useDefault: false,
         overrides: [
@@ -134,4 +150,17 @@ export async function createBookingEvent(params: {
   })
 
   return res.data
+}
+
+/**
+ * Extract the Google Meet URL from an event response. Returns null if
+ * the conference failed to provision (rare, but can happen if the
+ * calendar doesn't support Meet).
+ */
+export function getMeetLink(event: calendar_v3.Schema$Event): string | null {
+  if (event.hangoutLink) return event.hangoutLink
+  const entry = event.conferenceData?.entryPoints?.find(
+    (e) => e.entryPointType === "video"
+  )
+  return entry?.uri ?? null
 }

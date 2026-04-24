@@ -41,7 +41,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const candidates = generateCandidateSlots(service.duration)
+    const candidates = await generateCandidateSlots(service.duration)
     if (candidates.length === 0) {
       return NextResponse.json({ slots: [] })
     }

@@ -1,12 +1,18 @@
 # Booking calendar — setup guide
 
 This guide connects the website's booking calendar to Alison's Google
-Calendar. Once set up, any event on her calendar (holiday, personal
-appointment, lunch meeting) automatically blocks that time for new
-bookings. When someone books a session, it appears as a new event on
-her calendar with the client's details in the description.
+Calendar at **alithomasmedium@gmail.com**. Once set up, any event on
+her calendar (holiday, personal appointment, lunch meeting) automatically
+blocks that time for new bookings. When someone books a session, it
+appears as a new event on her calendar with the client's details in the
+description.
 
 The whole process is a one-time setup that takes about 20 minutes.
+
+> **Important:** Every step below that involves "signing in" or
+> "authorizing" has to be done by someone who can log in to
+> **alithomasmedium@gmail.com**. OAuth can't be completed by the
+> developer — Google requires the account owner's own password/2FA.
 
 ## What you'll end up with
 
@@ -19,8 +25,10 @@ The whole process is a one-time setup that takes about 20 minutes.
 
 ## 1. Create the Google Cloud project
 
-1. Open <https://console.cloud.google.com/> and sign in as Alison
-   (or whoever will own the calendar that bookings are written to).
+1. Open <https://console.cloud.google.com/> and sign in as
+   **alithomasmedium@gmail.com** (not any other Google account — the
+   project has to live on this account so the OAuth scopes line up
+   with the calendar we'll connect later).
 2. Click the project picker at the top → **New project**. Call it
    something like `alison-booking`. Accept the defaults.
 3. In the search bar, type **Google Calendar API** and open it. Click
@@ -32,15 +40,15 @@ The whole process is a one-time setup that takes about 20 minutes.
 2. Choose **External**. Click **Create**.
 3. Fill in:
    - App name: `Alison Thomas Booking`
-   - User support email: `hello@alisonthomasmedium.com`
-   - Developer contact: same
+   - User support email: `alithomasmedium@gmail.com`
+   - Developer contact: `alithomasmedium@gmail.com`
 4. Click **Save and continue** through the remaining steps.
    - On **Scopes**, add `.../auth/calendar.events` and
      `.../auth/calendar.freebusy`. (These let the app create events
      and check free/busy — nothing more.)
-5. On **Test users**, add Alison's Google address. While the app is
-   in "Testing" status, only listed users can sign in — that's fine
-   because she's the only person who needs to.
+5. On **Test users**, add **alithomasmedium@gmail.com**. While the
+   app is in "Testing" status, only listed users can sign in — that's
+   fine because she's the only person who needs to.
 
 ## 3. Create the OAuth client
 
@@ -79,8 +87,11 @@ GOOGLE_CLIENT_ID=... GOOGLE_CLIENT_SECRET=... node scripts/get-google-refresh-to
 (Or, since `.env.local` already has them, load them first:
 `export $(grep -v '^#' .env.local | xargs) && node scripts/get-google-refresh-token.mjs`.)
 
-A browser tab opens. Sign in as Alison and approve the scopes. The
-script prints the refresh token to your terminal:
+A browser tab opens. **Sign in as alithomasmedium@gmail.com**
+(if you're already signed in with a different Google account, Google
+will show an account picker — make sure to pick the right one).
+Approve the two calendar scopes when asked. The script prints the
+refresh token to your terminal:
 
 ```
 GOOGLE_REFRESH_TOKEN=1//0gxxxxxxxxxxxxxxxxxxxxxxx
@@ -90,16 +101,18 @@ Paste that line into `.env.local`.
 
 ## 6. (Optional) Use a dedicated calendar
 
-By default the integration writes to Alison's primary calendar. If she
-prefers a separate calendar for bookings:
+By default, bookings are written to the primary calendar of
+**alithomasmedium@gmail.com**. If Alison prefers a separate calendar
+just for client bookings (keeping her personal stuff cleaner):
 
-1. In Google Calendar, create a new calendar called "Bookings".
+1. In Google Calendar (signed in as alithomasmedium@gmail.com), create
+   a new calendar called "Bookings".
 2. Open its **Settings** → scroll to **Integrate calendar** → copy the
    **Calendar ID** (looks like `abc...@group.calendar.google.com`).
 3. Set `GOOGLE_CALENDAR_ID=<that ID>` in `.env.local`.
 
-Make sure the account that authorized the app (step 5) has edit
-permission on that calendar.
+Both personal events and the Bookings calendar will still block new
+bookings — the freebusy check defaults to the account's merged view.
 
 ## 7. Set the weekly working hours
 

@@ -6,6 +6,7 @@ import { TIMEZONE } from "@/lib/availability"
 import {
   createBookingEvent,
   getBusyIntervals,
+  getMeetLink,
   googleStatus,
 } from "@/lib/google-calendar"
 
@@ -76,11 +77,11 @@ export async function POST(request: Request) {
     const busy = await getBusyIntervals(startDate, endDate)
 
     if (
-      !isSlotBookable(
+      !(await isSlotBookable(
         { start: startDate, end: endDate },
         service.duration,
         busy
-      )
+      ))
     ) {
       return NextResponse.json(
         { error: "This slot is no longer available." },
@@ -113,6 +114,7 @@ export async function POST(request: Request) {
       ok: true,
       eventId: event.id,
       htmlLink: event.htmlLink,
+      meetLink: getMeetLink(event),
     })
   } catch (error) {
     console.error("[api/bookings] failed", error)

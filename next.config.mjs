@@ -1,25 +1,25 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Statisk export — bygger till ./out som sedan serveras av GitHub Pages.
-  output: "export",
 
-  // GitHub Pages serverar kataloger via /index.html, så vi behöver trailing slash
-  // för att direkta URL-besök ska hitta rätt HTML-fil.
-  trailingSlash: true,
+// Build mode:
+//   STATIC_EXPORT=true  → GitHub Pages-compatible static build (no API routes,
+//                         no admin panel, no Google Calendar integration).
+//   anything else       → Full Next.js build (Vercel) — all features work.
+//
+// Default to the full build so new server features ship by default. The
+// GitHub Pages workflow sets STATIC_EXPORT=true explicitly if you still
+// want to ship the static marketing site from there.
+const STATIC_EXPORT = process.env.STATIC_EXPORT === "true"
 
-  images: {
-    // Påkrävt för 'output: export' — Next/Image-optimeraren kan inte köras
-    // utan en Node-runtime.
-    unoptimized: true,
-  },
-
-  // basePath/assetPrefix sätts via miljövariabel så samma config
-  // fungerar både lokalt (root) och på GitHub Pages (/<repo-namn>).
-  // För en "user/organization"-site (t.ex. <user>.github.io) ska basePath vara tom.
-  // För en "project"-site (t.ex. <user>.github.io/my-repo) sätts BASE_PATH
-  // till "/my-repo" i GitHub Actions.
-  basePath: process.env.BASE_PATH || "",
-  assetPrefix: process.env.BASE_PATH || "",
-}
+const nextConfig = STATIC_EXPORT
+  ? {
+      output: "export",
+      trailingSlash: true,
+      images: { unoptimized: true },
+      basePath: process.env.BASE_PATH || "",
+      assetPrefix: process.env.BASE_PATH || "",
+    }
+  : {
+      images: { unoptimized: true },
+    }
 
 export default nextConfig

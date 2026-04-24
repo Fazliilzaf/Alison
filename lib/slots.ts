@@ -1,12 +1,13 @@
 /**
  * Slot generation and filtering.
  *
- * Given a service duration and Alison's weekly availability config, produce
- * a list of candidate slots. Given busy intervals from Google Calendar,
- * filter them down to only the truly available ones.
+ * Reads the currently active weekly schedule from availability-store
+ * (admin UI can override the defaults in lib/availability.ts) and
+ * combines it with Google Calendar busy data to produce the public
+ * list of available slots.
  */
 
-import { weeklyAvailability, bookingWindow } from "./availability"
+import { getSchedule } from "./availability-store"
 import type { BusyInterval } from "./google-calendar"
 
 export type Slot = { start: Date; end: Date }
@@ -22,27 +23,26 @@ function overlaps(a: Slot, b: { start: Date; end: Date }): boolean {
 
 /**
  * Generate all candidate slots for a given service duration across the
- * booking window, respecting the weekly availability config and lead time.
- *
- * All dates are returned in the server's local time — the calling code
- * is responsible for serializing them as ISO strings with the appropriate
- * time zone.
+ * booking window, respecting the weekly schedule and lead time.
  */
-export function generateCandidateSlots(durationMinutes: number): Slot[] {
+export async function generateCandidateSlots(
+  durationMinutes: number
+): Promise<Slot[]> {
+  const schedule = await getSchedule()
   const slots: Slot[] = []
   const now = new Date()
   const earliestStart = new Date(
-    now.getTime() + bookingWindow.leadTimeHours * 3600 * 1000
+    now.getTime() + schedule.leadTimeHours * 3600 * 1000
   )
 
   const cursor = new Date(now)
   cursor.setHours(0, 0, 0, 0)
 
-  for (let i = 0; i <= bookingWindow.maxDaysAhead; i++) {
+  for (let i = 0; i <= schedule.maxDaysAhead; i++) {
     const day = new Date(cursor)
     day.setDate(cursor.getDate() + i)
     const dow = day.getDay()
-    const rule = weeklyAvailability.find((r) => r.dayOfWeek === dow)
+    const rule = schedule.weekly.find((r) => r.dayOfWeek === dow)
     if (!rule || rule.windows.length === 0) continue
 
     for (const window of rule.windows) {
@@ -63,7 +63,7 @@ export function generateCandidateSlots(durationMinutes: number): Slot[] {
           slots.push({ start: new Date(slotStart), end: new Date(slotEnd) })
         }
         slotStart = new Date(
-          slotStart.getTime() + bookingWindow.slotInterval * 60 * 1000
+          slotStart.getTime() + schedule.slotInterval * 60 * 1000
         )
       }
     }
@@ -73,36 +73,30 @@ export function generateCandidateSlots(durationMinutes: number): Slot[] {
 }
 
 /**
- * Remove slots that overlap with any busy interval (applying optional
- * buffer on both sides).
+ * Remove slots that overlap with any busy interval.
  */
 export function filterOutBusy(
   slots: Slot[],
-  busy: BusyInterval[],
-  bufferMinutes = bookingWindow.bufferMinutes
+  busy: BusyInterval[]
 ): Slot[] {
   if (busy.length === 0) return slots
-  const buffered = busy.map((b) => ({
-    start: new Date(b.start.getTime() - bufferMinutes * 60 * 1000),
-    end: new Date(b.end.getTime() + bufferMinutes * 60 * 1000),
-  }))
-  return slots.filter((slot) => !buffered.some((b) => overlaps(slot, b)))
+  return slots.filter((slot) => !busy.some((b) => overlaps(slot, b)))
 }
 
 /**
- * Check whether a specific slot matches a valid candidate AND isn't busy.
- * Used server-side before creating a booking to prevent race conditions.
+ * Server-side re-check before writing a booking: validates that the
+ * requested slot matches a current candidate AND isn't now busy.
  */
-export function isSlotBookable(
+export async function isSlotBookable(
   candidate: Slot,
   durationMinutes: number,
   busy: BusyInterval[]
-): boolean {
+): Promise<boolean> {
   const expectedMs = durationMinutes * 60 * 1000
   if (candidate.end.getTime() - candidate.start.getTime() !== expectedMs) {
     return false
   }
-  const all = generateCandidateSlots(durationMinutes)
+  const all = await generateCandidateSlots(durationMinutes)
   const matches = all.some(
     (s) =>
       s.start.getTime() === candidate.start.getTime() &&
