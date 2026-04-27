@@ -18,3 +18,4 @@ out/
 
 # Local admin data (used in dev; production uses Upstash Redis)
 data/
+.vercel

@@ -23,32 +23,23 @@ You won't need to log into any of these services. Fazli may later offer to trans
 
 ## What you do
 
-### Part 1 — Book a 15-minute call with Fazli (today)
+### Part 1 — Set aside 30 minutes (any time before Friday evening)
 
-Message him and choose any slot **Thursday evening or Friday 08:00–11:00 (UK time)**. It has to be a video call — Zoom, FaceTime, Google Meet, anything that lets you share your screen.
+Find a quiet 30-minute slot to do Part 2 below. You'll want to be at a desk, with a coffee, no interruptions. The actual work takes 25 min; the buffer is for double-checking and sending Fazli the result.
 
-Put it in the calendar. Set a 10-minute reminder.
+You don't need Fazli on the call — Part 2 is self-contained. Just message him afterward with the three values from your notes.
 
-### Part 2 — The Google Cloud session (15 minutes, the only step)
+### Part 2 — The Google Calendar setup (25 minutes — solo)
 
-During the call, do this at your laptop (not your phone):
+You'll do this on your own at your laptop, in the browser. No video call needed, no terminal, no command line.
 
-**Before the call — 2 minutes prep:**
+Open the dedicated guide: **[ALISON_GOOGLE_SETUP.md](./ALISON_GOOGLE_SETUP.md)** (also delivered as PDF)
 
-1. Make sure you're **signed in to Gmail as `alithomasmedium@gmail.com`** in Safari or Chrome. If another Google account is active, sign out first. This is the single most important thing to get right — the call fails if the wrong account is used.
-2. Have your phone ready for any two-factor codes Google sends.
+It's a numbered list of every click, in order, with screenshots described. You follow it from top to bottom. By the end, you'll have **three values in your notes** (Client ID, Client Secret, Refresh Token) — send them to Fazli on Signal and the booking calendar comes alive on the new site.
 
-**On the call — Fazli guides you:**
+The guide has its own troubleshooting section for the common pitfalls. If you get stuck somewhere not covered there, screenshot the screen and message Fazli — he can usually unstick you in 2 minutes.
 
-3. You share your screen.
-4. You open a page he tells you (`console.cloud.google.com`). You check the top-right corner says `alithomasmedium@gmail.com`.
-5. Fazli walks you through clicking through a few Google pages. He'll say "click the blue button", "agree to the terms", "accept the permission prompt". Everything is clicking what he tells you — no typing except your Gmail password once or twice.
-6. Near the end, a browser window opens asking "do you want this app to access your Google Calendar?". Click **Allow**.
-7. Fazli copies a code from his screen. Done.
-
-Nothing on your calendar changes. Nothing gets published. The site just gets permission to read free/busy times and add new bookings.
-
-**If Fazli gets stuck on a step, don't click randomly — pause and wait for him to say what to do.**
+**Why this is the one technical step:** Google's security rules require the account owner (you, signed in as alithomasmedium@gmail.com) to approve the website's access. Nobody else can do it on your behalf, even with your password.
 
 ---
 
@@ -117,7 +108,7 @@ Your existing Squarespace site stays live at `alisonthomasmedium.com` until laun
 | Day | What happens |
 |---|---|
 | Thu 24/4 | Fazli sets up GitHub, Upstash, Vercel. New site goes live on a temporary URL like `alisonthomasmedium-xyz.vercel.app`. Your real domain still shows the old Squarespace site. |
-| Fri 25/4 morning | **You + Fazli — 15 min video call** for Google Cloud (Part 2 above). Right after, the booking calendar comes alive on the temporary URL. |
+| Fri 25/4 (any time) | **You — 25-min Google Calendar setup, solo** (Part 2 above). Send Fazli the three values when done. He plugs them in and the booking calendar comes alive on the temporary URL. |
 | Sat 26/4 – Sun 27/4 | **You test the new site using the temporary URL** — book yourself an appointment, try the admin page, change your schedule. Nothing you do here is public yet. Fazli fixes anything you flag. |
 | Mon 28/4 | Final checks. Fazli pauses the old Acuity booking in Squarespace so future bookings only land on the new site. |
 | Tue 29/4 | **Launch day.** Fazli switches DNS so `alisonthomasmedium.com` points to the new site. Within 15–30 min the new site is live on your real domain. Share the URL, post on social media, update business cards. |
