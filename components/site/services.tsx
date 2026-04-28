@@ -61,14 +61,14 @@ const services = [
 ]
 
 const emailReading = {
-  title: "Email Tarot or Rune Readings",
+  title: "Email Tarot or Rune Reading",
   price: "£29",
   delivery: "Delivered within 24–48 hours",
   short:
     "Intuitive distance readings via email using the Rider Waite Smith tarot or Elder Futhark runes — delivered as a private video within 24–48 hours.",
   description:
     "I offer intuitive distance readings via email using either the Rider Waite Smith tarot or the Elder Futhark runes. You simply send your question, and I will draw up to three cards or runes to bring through clear, grounded guidance and insight. Your reading is recorded as a private video, where I walk you through the messages and energies that come forward. All readings are delivered within 24–48 hours, offering you time and space to receive meaningful, personal guidance you can return to whenever you need.",
-  emailSubject: "Booking Request — Email Tarot or Rune Readings",
+  emailSubject: "Booking Request — Email Tarot or Rune Reading",
 }
 
 /** Subtil 3D-tilt på hover (max 4°). Inaktiv på touch + reduced-motion. */

@@ -57,7 +57,7 @@ export const services: Service[] = [
   },
   {
     id: "email",
-    title: "Email Tarot or Rune Readings",
+    title: "Email Tarot or Rune Reading",
     duration: null,
     price: 29,
     currency: "£",
