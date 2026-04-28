@@ -44,25 +44,44 @@ function defaultSchedule(): StoredSchedule {
   }
 }
 
+/**
+ * Resolve Upstash credentials from either:
+ *   - UPSTASH_REDIS_REST_URL/TOKEN (set when you provision Upstash directly)
+ *   - KV_REST_API_URL/TOKEN (set when you provision via Vercel Marketplace)
+ *
+ * Both come from the same Upstash backend; only the env-var prefix differs
+ * depending on how the database was created.
+ */
+function getUpstashCreds(): { url: string; token: string } | null {
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN
+  if (!url || !token) return null
+  return { url, token }
+}
+
 function hasUpstash(): boolean {
-  return !!(
-    process.env.UPSTASH_REDIS_REST_URL &&
-    process.env.UPSTASH_REDIS_REST_TOKEN
-  )
+  return getUpstashCreds() !== null
 }
 
 /* --------------------------- Upstash backend --------------------------- */
 
-async function readFromUpstash(): Promise<StoredSchedule | null> {
+async function getRedis() {
   const { Redis } = await import("@upstash/redis")
-  const redis = Redis.fromEnv()
+  const creds = getUpstashCreds()
+  if (!creds) throw new Error("Upstash credentials not configured")
+  return new Redis({ url: creds.url, token: creds.token })
+}
+
+async function readFromUpstash(): Promise<StoredSchedule | null> {
+  const redis = await getRedis()
   const value = (await redis.get(REDIS_KEY)) as StoredSchedule | null
   return value ?? null
 }
 
 async function writeToUpstash(schedule: StoredSchedule): Promise<void> {
-  const { Redis } = await import("@upstash/redis")
-  const redis = Redis.fromEnv()
+  const redis = await getRedis()
   await redis.set(REDIS_KEY, schedule)
 }
 
