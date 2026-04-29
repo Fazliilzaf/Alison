@@ -45,6 +45,10 @@ export function BookingCalendar() {
   const [slots, setSlots] = useState<ApiSlot[]>([])
   const [loadError, setLoadError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  // When Google Calendar isn't configured (e.g. before launch), the API
+  // returns googleConnected: false. We use that to render an email-CTA
+  // fallback instead of an empty/fake calendar so visitors aren't confused.
+  const [googleConnected, setGoogleConnected] = useState<boolean | null>(null)
   const [form, setForm] = useState({ name: "", email: "", phone: "", note: "" })
   const calendarRef = useRef<FullCalendar>(null)
 
@@ -63,6 +67,7 @@ export function BookingCalendar() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const json = await res.json()
         setSlots(json.slots ?? [])
+        setGoogleConnected(json.googleConnected === true)
       } catch (err) {
         console.error(err)
         setLoadError(
@@ -230,6 +235,36 @@ export function BookingCalendar() {
             >
               Request by email — £29
             </a>
+          </div>
+        ) : googleConnected === false ? (
+          // Soft-launch fallback: Google Calendar isn't wired up yet.
+          // Instead of a confusing empty calendar, invite the visitor to
+          // book by email. Once GOOGLE_REFRESH_TOKEN is set on the server,
+          // this branch never renders and the live calendar takes over.
+          <div className="text-center max-w-xl mx-auto px-2 py-8">
+            <p className="text-[11px] tracking-[0.28em] uppercase text-gold/90">
+              Booking by email
+            </p>
+            <h3 className="mt-3 font-serif text-2xl md:text-3xl text-ivory">
+              The online calendar opens shortly.
+            </h3>
+            <p className="mt-4 text-ivory/75 leading-relaxed">
+              While I finish setting up the live booking system, please write
+              to me directly with the session you&rsquo;d like and your
+              preferred days. I read every message personally and will
+              confirm a time within a day.
+            </p>
+            <a
+              href={`mailto:hello@alisonthomasmedium.com?subject=${encodeURIComponent(
+                `Booking Request — ${selected.title}`
+              )}`}
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-gold px-7 py-3 text-sm font-medium text-navy transition-colors hover:bg-gold-dark shadow-sm"
+            >
+              Email Alison to book
+            </a>
+            <p className="mt-4 text-ivory/55 text-xs tracking-[0.18em] uppercase">
+              hello@alisonthomasmedium.com
+            </p>
           </div>
         ) : (
           <div className="booking-calendar-surface">
